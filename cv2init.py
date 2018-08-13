@@ -75,33 +75,53 @@ import matplotlib.pyplot as plt
 # cv2.destroyAllWindows()
 
 # =====================================================================================================================STEP5==========
-img1 = cv2.imread('a.JPG')
-img2 = cv2.imread('b.JPG')
-img3 = cv2.imread('c.jpg')
+# img1 = cv2.imread('a.JPG')
+# img2 = cv2.imread('b.JPG')
+# img3 = cv2.imread('c.jpg')
 
-# add = img1 + img2
-# add = cv2.add(img1,img2)
+# # add = img1 + img2
+# # add = cv2.add(img1,img2)
 
-# weighted = cv2.addWeighted(img1,0.6, img2, 0.4,0)
+# # weighted = cv2.addWeighted(img1,0.6, img2, 0.4,0)
 
-rows, cols, channels = img3.shape
-roi = img1[0:rows,0:cols]
+# rows, cols, channels = img3.shape
+# roi = img1[0:rows,0:cols]
 
-img2grey = cv2.cvtColor(img3, cv2.COLOR_BGR2GRAY)
-rowset, mask = cv2.threshold(img2grey,150,255,cv2.THRESH_BINARY_INV)
+# img2grey = cv2.cvtColor(img3, cv2.COLOR_BGR2GRAY)
+# rowset, mask = cv2.threshold(img2grey,150,255,cv2.THRESH_BINARY_INV)
 
-# cv2.imshow('mask', mask)
+# # cv2.imshow('mask', mask)
 
-mask_inv = cv2.bitwise_not(mask)
+# mask_inv = cv2.bitwise_not(mask)
 
-img1_bg = cv2.bitwise_and(roi, roi, mask = mask_inv)
-img3_fg = cv2.bitwise_and(img3, img3, mask = mask)
+# img1_bg = cv2.bitwise_and(roi, roi, mask = mask_inv)
+# img3_fg = cv2.bitwise_and(img3, img3, mask = mask)
 
-dst = cv2.add(img1_bg, img3_fg)
+# dst = cv2.add(img1_bg, img3_fg)
 
-img1[0:rows,0:cols] = dst
+# img1[0:rows,0:cols] = dst
 
-cv2.imshow('img',img1)
-# cv2.imshow('add', weighted)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+# cv2.imshow('img',img1)
+# # cv2.imshow('add', weighted)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+
+# ================================================STEP6=======================================================
+
+# img = cv2.imread('1.JPG')
+# retval, threshold = cv2.threshold(img, 120, 255, cv2.THRESH_BINARY)
+
+# grayscaled = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+# retval1, threshold1 = cv2.threshold(grayscaled, 120, 255, cv2.THRESH_BINARY)
+
+# gaus = cv2.adaptiveThreshold(grayscaled,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 115,15)
+
+# cv2.imshow('original',img)
+# cv2.imshow('threshold', threshold)
+# cv2.imshow('threshold1', threshold1)
+# cv2.imshow('gaus', gaus)
+
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
+
+# =================================================STEP7==================================
