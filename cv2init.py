@@ -126,26 +126,146 @@ import matplotlib.pyplot as plt
 
 # =================================================STEP7==================================
 
-cap = cv2.VideoCapture(0)
+# cap = cv2.VideoCapture(0)
 
-while True:
-	_, frame = cap.read()
-	hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+# while True:
+# 	_, frame = cap.read()
+# 	hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
 
-	lower_yellow = np.array([20,90,0])
-	upper_yellow = np.array([40,255,255])
+# 	lower_yellow = np.array([20,90,0])
+# 	upper_yellow = np.array([40,255,255])
 
-	mask = cv2.inRange(hsv, lower_yellow,upper_yellow)
-	res = cv2.bitwise_and(frame, frame, mask = mask)
+# 	mask = cv2.inRange(hsv, lower_yellow,upper_yellow)
+# 	res = cv2.bitwise_and(frame, frame, mask = mask)
 
-	cv2.imshow('frame',frame)
-	cv2.imshow('mask',mask)
-	cv2.imshow('res',res)
+# 	cv2.imshow('frame',frame)
+# 	cv2.imshow('mask',mask)
+# 	cv2.imshow('res',res)
 
-	k = cv2.waitKey(5) & 0xFF
-	if(k == 27):
-		break
+# 	k = cv2.waitKey(5) & 0xFF
+# 	if(k == 27):
+# 		break
 
-cv2.destroyAllWindows()
-cap.release()
+# cv2.destroyAllWindows()
+# cap.release()
+
+# =================================================STEP8==================================
+
+
+# cap = cv2.VideoCapture(0)
+
+# while True:
+# 	_, frame = cap.read()
+# 	hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+
+# 	lower_yellow = np.array([20,90,0])
+# 	upper_yellow = np.array([40,255,255])
+
+# 	mask = cv2.inRange(hsv, lower_yellow,upper_yellow)
+# 	res = cv2.bitwise_and(frame, frame, mask = mask)
+
+# 	kernel = np.ones((15,15), np.float32)/255
+# 	smoothed = cv2.filter2D(res, -1, kernel)
+# 	blur = cv2.GaussianBlur(res,(15,15),0)
+# 	median = cv2.medianBlur(res,15)
+# 	cv2.imshow('frame',frame)
+# 	# cv2.imshow('mask',mask)
+# 	cv2.imshow('res',res)
+# 	# cv2.imshow('smoothed',smoothed)
+# 	# cv2.imshow('blur',blur)
+# 	cv2.imshow('median',median)
+
+
+# 	k = cv2.waitKey(5) & 0xFF
+# 	if(k == 27):
+# 		break
+
+# cv2.destroyAllWindows()
+# cap.release()
+
+# =================================================STEP9==================================
+
+
+# cap = cv2.VideoCapture(0)
+
+# while True:
+# 	_, frame = cap.read()
+# 	hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+
+# 	lower_yellow = np.array([20,90,0])
+# 	upper_yellow = np.array([40,255,255])
+
+# 	mask = cv2.inRange(hsv, lower_yellow,upper_yellow)
+# 	res = cv2.bitwise_and(frame, frame, mask = mask)
+
+# 	kernel = np.ones((5,5), np.uint8)
+# 	erosion = cv2.erode(mask, kernel, iterations = 1)
+# 	dialation = cv2.dilate(mask, kernel, iterations = 1)
+
+# 	opening = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
+# 	closing = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
+
+# 	cv2.imshow('frame',frame)
+# 	cv2.imshow('res',res)
+# 	# cv2.imshow('dialation',dialation)
+# 	# cv2.imshow('erosion',erosion)
+
+# 	cv2.imshow('opening',opening)
+# 	cv2.imshow('closing',closing)
+	
+
+# 	k = cv2.waitKey(5) & 0xFF
+# 	if(k == 27):
+# 		break
+
+# cv2.destroyAllWindows()
+# cap.release()
+
+
+# =================================================STEP10==================================
+
+
+# cap = cv2.VideoCapture(0)
+
+# while True:
+# 	_, frame = cap.read()
+# 	laplacian = cv2.Laplacian(frame, cv2.CV_64F)
+
+# 	sobelx = cv2.Sobel(frame, cv2.CV_64F,1,0,ksize = 5)
+# 	sobely = cv2.Sobel(frame, cv2.CV_64F,0,1,ksize = 5)
+
+# 	edges = cv2.Canny(frame,100,100)
+
+# 	cv2.imshow('original',frame)
+# 	# cv2.imshow('laplacian',laplacian)
+# 	# cv2.imshow('sobelx',sobelx)
+# 	# cv2.imshow('sobely',sobely)
+# 	cv2.imshow('edges',edges)
+
+
+# 	k = cv2.waitKey(5) & 0xFF
+# 	if(k == 27):
+# 		break
+
+# cv2.destroyAllWindows()
+# cap.release()
+
+# =================================================STEP11==================================
+
+img_bgr = cv2.imread('a.JPG')
+img_gray = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2GRAY)
+
+template = cv2.imread('')
+w, h = template.shape[::-1]
+
+res = cv2.matchTemplate(img_gray, template, cv2.TM_CCOEFF_NORMED)
+
+threshold = 0.8
+loc = np.where(res>=threshold)
+
+for pt in zip(*loc[::-1]):
+	cv2.rectangle(img_bgr, pt, (pt[0]+w, pt[1]+h), (0,255,255), 2)
+cv2.imshow('',img_bgr)
