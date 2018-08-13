@@ -3,12 +3,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # ==================================================================================================================STEP1============
-img = cv2.imread('p.jpg',cv2.IMREAD_GRAYSCALE)
-print(img)
-cv2.imshow('Image00', img)
-cv2.waitKey()
+# img = cv2.imread('p.jpg',cv2.IMREAD_GRAYSCALE)
+# print(img)
+# cv2.imshow('Image00', img)
+# cv2.waitKey()
 
-cv2.destroyAllWindows()
+# cv2.destroyAllWindows()
 
 
 # plt.imshow(img, cmap = 'gray' , interpolation = 'bicubic')
@@ -62,3 +62,46 @@ cv2.destroyAllWindows()
 
 
 # img = cv2.imread('p.jpg',cv2.IMREAD_COLOR)
+
+# # ROI : Region of Image?? Region of interest??
+
+# roi = img[100:250,100:250]
+# # img[100:250,100:250] = [255,255,255]
+
+# img[300:450,300:450] = roi
+# cv2.imshow('Image00', img)
+# cv2.waitKey(0)
+
+# cv2.destroyAllWindows()
+
+# =====================================================================================================================STEP5==========
+img1 = cv2.imread('a.JPG')
+img2 = cv2.imread('b.JPG')
+img3 = cv2.imread('c.jpg')
+
+# add = img1 + img2
+# add = cv2.add(img1,img2)
+
+# weighted = cv2.addWeighted(img1,0.6, img2, 0.4,0)
+
+rows, cols, channels = img3.shape
+roi = img1[0:rows,0:cols]
+
+img2grey = cv2.cvtColor(img3, cv2.COLOR_BGR2GRAY)
+rowset, mask = cv2.threshold(img2grey,150,255,cv2.THRESH_BINARY_INV)
+
+# cv2.imshow('mask', mask)
+
+mask_inv = cv2.bitwise_not(mask)
+
+img1_bg = cv2.bitwise_and(roi, roi, mask = mask_inv)
+img3_fg = cv2.bitwise_and(img3, img3, mask = mask)
+
+dst = cv2.add(img1_bg, img3_fg)
+
+img1[0:rows,0:cols] = dst
+
+cv2.imshow('img',img1)
+# cv2.imshow('add', weighted)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
